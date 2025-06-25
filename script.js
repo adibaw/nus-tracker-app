@@ -1,4 +1,4 @@
-const checklist = [
+let checklist = JSON.parse(localStorage.getItem("nusGoals")) || [
   "Riset jurusan dan persyaratan NUS",
   "Persiapan nilai akademik dan rapor",
   "Persiapkan dokumen (paspor, sertifikat, dll)",
@@ -11,6 +11,10 @@ const checklist = [
 const checklistElement = document.getElementById("checklist");
 const input = document.getElementById("new-item");
 const button = document.getElementById("add-button");
+
+function saveChecklist() {
+  localStorage.setItem("nusGoals", JSON.stringify(checklist));
+}
 
 function renderChecklist() {
   checklistElement.innerHTML = "";
@@ -26,6 +30,7 @@ button.addEventListener("click", () => {
   if (newItem !== "") {
     checklist.push(newItem);
     input.value = "";
+    saveChecklist();       // <-- simpan ke localStorage
     renderChecklist();
   }
 });
